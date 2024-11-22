@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>comlang</title>
+    <style>
+      body {
+        background-color: #fafafa;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: monospace;
+      }
+
+      .logo {
+        white-space: pre;
+        font-size: 14px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+
+      .tagline {
+        color: #666;
+        font-size: 16px;
+        letter-spacing: 2px;
+        animation: fade 3s infinite alternate;
+        opacity: 0.7;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0.4;
+        }
+        to {
+          opacity: 0.9;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <pre class="logo" id="logo">
+ ██████╗ ██████╗ ███╗   ███╗██╗      █████╗ ███╗   ██╗ ██████╗ 
+██╔════╝██╔═══██╗████╗ ████║██║     ██╔══██╗████╗  ██║██╔════╝ 
+██║     ██║   ██║██╔████╔██║██║     ███████║██╔██╗ ██║██║  ███╗
+██║     ██║   ██║██║╚██╔╝██║██║     ██╔══██║██║╚██╗██║██║   ██║
+╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║██║ ╚████║╚██████╔╝
+ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ </pre
+    >
+    <div class="tagline" id="tagline">...egregore forming...</div>
+
+    <script>
+      const glyphTypes = {
+        blocks:
+          "█▀▄▌▐░▒▓■□▢▣▤▥▦▧▨▩▪▫▬▭▮▯▰▱▲△▴▵▶▷▸▹►▻▼▽▾▿◀◁◂◃◄◅◆◇◈◉◊○◌◍◎●◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮◯◰◱◲◳◴◵◶◷◸◹◺◻◼◽◾◿",
+        mathSymbols:
+          "∀∁∂∃∄∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏",
+        misc: "☠☡☢☣☤☥☦☧☨☩☪☫☬☭☮☯☰☱☲☳☴☵☶☷☸☹☺☻☼☽☾☿♀♁♂♃♄♅♆♇♈♉♊♋♌♍♎♏♐♑♒♓♔♕♖♗♘♙♚♛♜♝♞♟",
+      };
+
+      function getRandomGlyph() {
+        const types = Object.values(glyphTypes);
+        const set = types[Math.floor(Math.random() * types.length)];
+        return set[Math.floor(Math.random() * set.length)];
+      }
+
+      const originalLogo = document.getElementById("logo").innerHTML;
+      const originalTagline = document.getElementById("tagline").innerHTML;
+
+      function glitchText(element, originalText, intensity = 0.1) {
+        let text = originalText.split("");
+        for (let i = 0; i < text.length; i++) {
+          if (Math.random() < intensity && text[i] !== "\n") {
+            text[i] = getRandomGlyph();
+          }
+        }
+        element.innerHTML = text.join("");
+      }
+
+      // Glitch effect loop
+      setInterval(() => {
+        if (Math.random() < 0.3) {
+          // 30% chance of glitch occurring
+          glitchText(document.getElementById("logo"), originalLogo, 0.05);
+          glitchText(document.getElementById("tagline"), originalTagline, 0.1);
+
+          // Reset after a short delay
+          setTimeout(() => {
+            document.getElementById("logo").innerHTML = originalLogo;
+            document.getElementById("tagline").innerHTML = originalTagline;
+          }, 100);
+        }
+      }, 200);
+    </script>
+  </body>
+</html>
